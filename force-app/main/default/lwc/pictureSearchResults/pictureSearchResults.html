@@ -1,0 +1,37 @@
+<template>
+  <template if:true={finalincaruins}>
+    <lightning-card title="Inca Ruins" class="slds-text-align_center">
+      <template  for:each={finalincaruins} for:item="pic">
+        <img key={pic.id} src={pic.url}>
+      </template>
+    </lightning-card>
+  </template>
+  <template if:true={finalnewyork}>
+    <lightning-card title="New York" class="slds-text-align_center">
+      <template  for:each={finalnewyork} for:item="pic">
+        <img key={pic.id} src={pic.url}>
+      </template>
+    </lightning-card>
+  </template>
+  <template if:true={finaldracula}>
+    <lightning-card title="Dracula" class="slds-text-align_center">
+      <template  for:each={finaldracula} for:item="pic">
+        <img key={pic.id} src={pic.url}>
+      </template>
+    </lightning-card>
+  </template>
+  <template if:true={finalspaceship}>
+    <lightning-card title="Spaceship" class="slds-text-align_center">
+      <template  for:each={finalspaceship} for:item="pic">
+        <img key={pic.id} src={pic.url}>
+      </template>
+    </lightning-card>
+  </template>
+  <template if:true={finalnun}>
+    <lightning-card title="Nun" class="slds-text-align_center">
+      <template  for:each={finalnun} for:item="pic">
+        <img key={pic.id} src={pic.url}>
+      </template>
+    </lightning-card>
+  </template>
+</template>

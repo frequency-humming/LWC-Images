@@ -1,0 +1,14 @@
+<template>
+    <lightning-card>
+        <lightning-layout horizontal-align="center" vertical-align="end">
+            <lightning-layout-item class="slds-align-middle">
+            <lightning-combobox class="slds-align-middle"
+            value={pictureType}
+            placeholder= "All Types"
+            options={searchOptions}
+            onchange={handleChange}>
+            </lightning-combobox>
+        </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>  
+</template>
