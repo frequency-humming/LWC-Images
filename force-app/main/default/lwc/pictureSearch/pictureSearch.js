@@ -3,13 +3,15 @@ import { LightningElement } from 'lwc';
 export default class PictureSearch extends LightningElement {
 
     searchOptions = [{label:'All Types', value: ''},
-                    {label:'Space', value: 'Space'},
-                    {label:'New York',value:'New York'},
-                    {label:'Inca',value:'Inca'},
-                    {label:'Ruins',value:'Ruins'},
-                    {label:'Nun',value:'Nun'},
                     {label:'Cyberpunk',value:'Cyberpunk'},
-                    {label:'Dracula',value:'Dracula'}];
+                    {label:'Dracula',value:'Dracula'},
+                    {label:'Inca',value:'Inca'},
+                    {label:'New York',value:'New York'},
+                    {label:'Nun',value:'Nun'},
+                    {label:'Owl',value:'Owl'},
+                    {label:'Reactor',value:'Reactor'},
+                    {label:'Ruins',value:'Ruins'},
+                    {label:'Space', value: 'Space'}];
 
     pictureType = '';
 

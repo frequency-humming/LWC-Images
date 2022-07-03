@@ -34,4 +34,18 @@
       </template>
     </lightning-card>
   </template>
+  <template if:true={finalreactor}>
+    <lightning-card title="Reactor" class="slds-text-align_center">
+      <template  for:each={finalreactor} for:item="pic">
+        <img key={pic.id} src={pic.url}>
+      </template>
+    </lightning-card>
+  </template>
+  <template if:true={finalowl}>
+    <lightning-card title="Owl" class="slds-text-align_center">
+      <template  for:each={finalowl} for:item="pic">
+        <img key={pic.id} src={pic.url}>
+      </template>
+    </lightning-card>
+  </template>
 </template>

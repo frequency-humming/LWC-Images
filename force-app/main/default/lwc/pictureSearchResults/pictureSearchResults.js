@@ -4,6 +4,8 @@ import incaruins from '@salesforce/resourceUrl/incaruins';
 import dracula from '@salesforce/resourceUrl/dracula';
 import spaceship from '@salesforce/resourceUrl/spaceship';
 import nun from '@salesforce/resourceUrl/nun';
+import reactor from '@salesforce/resourceUrl/reactor';
+import owl from '@salesforce/resourceUrl/owl';
 import getPictures from '@salesforce/apex/PictureDataService.getPictures';
 
 export default class PictureSearchResults extends LightningElement {
@@ -16,6 +18,8 @@ export default class PictureSearchResults extends LightningElement {
     finaldracula;
     finalspaceship;
     finalnun;
+    finalreactor;
+    finalowl;
     error = undefined;
     
 
@@ -27,6 +31,8 @@ export default class PictureSearchResults extends LightningElement {
             this.finaldracula = [];
             this.finalspaceship = [];
             this.finalnun = [];
+            this.finalreactor = [];
+            this.finalowl = [];
             this.pictures = data.map( type => {
                 return {name:type.Name,number:type.number__c}
             })
@@ -67,16 +73,38 @@ export default class PictureSearchResults extends LightningElement {
                     })
                     this.urls = [];
                 }   
+                if(this.pictures[key].name == 'reactor'){
+                    this.iterate(this.pictures[key].number,reactor);
+                    this.finalreactor = this.urls.map( ev => {
+                        return {id:ev.id,url:ev.url}
+                    })
+                    this.urls = [];
+                }
+                if(this.pictures[key].name == 'owl'){
+                    this.iterate(this.pictures[key].number,owl);
+                    this.finalowl = this.urls.map( ev => {
+                        return {id:ev.id,url:ev.url}
+                    })
+                    this.urls = [];
+                }
             }
             console.log(this.finalnewyork);
             console.log(this.finalincaruins);
             console.log(this.finaldracula);
             console.log(this.finalspaceship);
+            console.log(this.finalreactor);
+            console.log(this.finalowl);
             this.pictures = [];
         }
         if(error){
-            this.error = data.error;
+            this.error = 'Error in LWC';
+            if (Array.isArray(error.body)) {
+                this.error = error.body.map(e => e.message).join(', ');
+            } else if (typeof error.body.message === 'string') {
+                this.error = error.body.message;
+            }
             this.pictures = undefined;
+            console.log('Error '+this.error);
         }
     }
 
