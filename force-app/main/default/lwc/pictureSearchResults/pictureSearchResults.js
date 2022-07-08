@@ -7,6 +7,7 @@ import nun from '@salesforce/resourceUrl/nun';
 import reactor from '@salesforce/resourceUrl/reactor';
 import owl from '@salesforce/resourceUrl/owl';
 import getPictures from '@salesforce/apex/PictureDataService.getPictures';
+import userData from '@salesforce/apex/PictureDataService.userData';
 
 export default class PictureSearchResults extends LightningElement {
 
@@ -21,7 +22,6 @@ export default class PictureSearchResults extends LightningElement {
     finalreactor;
     finalowl;
     error = undefined;
-    
 
     @wire(getPictures, {pictureTypeId: '$pictureTypeId'})
     wiredPictures({data,error}){
@@ -120,6 +120,20 @@ export default class PictureSearchResults extends LightningElement {
     @api
     searchPictures(pictureTypeId){
         this.pictureTypeId = pictureTypeId;
+    }
+
+    connectedCallback() {
+        //Here we explicitly call our Apex method(Imperative call)
+        console.log('in the callback');
+        userData({pictureTypeId:'All Types'})
+            .then((result) => {
+                if(result){
+                    console.log(result);
+                }
+            })
+            .catch((error) => {
+                console.log('Error: ', error);
+            })
     }
 
 }
