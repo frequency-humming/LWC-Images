@@ -15,11 +15,6 @@ export default class PictureSearch extends LightningElement {
 
     pictureType = '';
 
-
-    handleChange(event) {
-        this.value = event.detail.value;
-    }
-
     handleChange(event) {
         event.preventDefault();
         // Create the const searchEvent

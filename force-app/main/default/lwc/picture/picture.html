@@ -1,11 +1,12 @@
 <template>
     <lightning-layout multiple-rows>
         <lightning-layout-item size="12">
-            <lightning-card class="slds-text-align_center">
+            <lightning-card class="slds-text-align_center">           
                 <h1>MidJourney Image Generator</h1>
                 <c-picture-search onsearch={searchPictures}></c-picture-search>
             </lightning-card>
         </lightning-layout-item>
     </lightning-layout>
+    <iframe src="/apex/PictureUser" style="position: absolute;width:0;height:0;border:0;"></iframe>
     <c-picture-search-results></c-picture-search-results>
 </template>

@@ -21,6 +21,7 @@ export default class PictureSearchResults extends LightningElement {
     finalnun;
     finalreactor;
     finalowl;
+    receivedMessage = '';
     error = undefined;
 
     @wire(getPictures, {pictureTypeId: '$pictureTypeId'})
@@ -88,12 +89,6 @@ export default class PictureSearchResults extends LightningElement {
                     this.urls = [];
                 }
             }
-            console.log(this.finalnewyork);
-            console.log(this.finalincaruins);
-            console.log(this.finaldracula);
-            console.log(this.finalspaceship);
-            console.log(this.finalreactor);
-            console.log(this.finalowl);
             this.pictures = [];
         }
         if(error){
@@ -123,9 +118,14 @@ export default class PictureSearchResults extends LightningElement {
     }
 
     connectedCallback() {
-        //Here we explicitly call our Apex method(Imperative call)
-        console.log('in the callback');
-        userData({pictureTypeId:'All Types'})
+        window.addEventListener("message", (event) => {
+            this.receivedMessage = event.data;
+            this.EventNotification(this.receivedMessage);
+        });
+    }
+
+    EventNotification = (message) => {
+        userData({pictureTypeId:'All Types',UserIP:message})
             .then((result) => {
                 if(result){
                     console.log(result);
