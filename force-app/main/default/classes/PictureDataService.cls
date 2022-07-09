@@ -1,7 +1,5 @@
 public class PictureDataService {
-    
-    public string ip {get;set;}
-    
+     
     @AuraEnabled(cacheable=true)
     public static List<Picture__c> getPictures(String pictureTypeId){
         
@@ -13,32 +11,26 @@ public class PictureDataService {
        	//List<picture__c> pics = [SELECT ID,NAME, NUMBER__c FROM PICTURE__C where categories__c = :pictureTypeId];
 		return pics;
     }
-    
-    public pageReference getUserIPAddress(){
-        // True-Client-IP has the value when the request is coming via the caching integration.
-        ip = ApexPages.currentPage().getHeaders().get('True-Client-IP');
+     
+    @AuraEnabled(cacheable=false)
+    public static String userData(String pictureTypeId){
+        User_Event__e userEvent = new User_Event__e();
         
-        // X-Salesforce-SIP has the value when no caching integration or via secure URL.
-        if (ip == '' || ip == null) {
-            ip = ApexPages.currentPage().getHeaders().get('X-Salesforce-SIP');
-        } 
-        
-        // get IP address when no caching (sandbox, dev, secure urls)        
-        if (ip == '' || ip == null) {
-            ip = ApexPages.currentPage().getHeaders().get('X-Forwarded-For');
+        if (Auth.CommunitiesUtil.isGuestUser()){
+            userEvent.App__c='MidJourney Image App';
+            userEvent.UserIP__c='Guest User';
+            userEvent.LoginType__c='Off Platform';
+            userEvent.Image_Type__c=pictureTypeId;
+        }
+    	   
+
+        if (Auth.CommunitiesUtil.isInternalUser()){
+            userEvent.App__c='MidJourney Image App';
+            userEvent.UserIP__c=Auth.SessionManagement.getCurrentSession().get('SourceIp');
+            userEvent.LoginType__c=Auth.SessionManagement.getCurrentSession().get('LoginType');
+            userEvent.Image_Type__c=pictureTypeId;
         }
         
-        return null;
-    }
-    
-    @AuraEnabled(cacheable=false)
-    public static String userData(String pictureTypeId,String UserIP){
-        
-        User_Event__e userEvent = new User_Event__e(
-            App__c='MidJourney Image App',
-            UserIP__c=UserIP,
-            //LoginType__c=Auth.SessionManagement.getCurrentSession().get('LoginType'),
-            Image_Type__c=pictureTypeId);
         // Call method to publish events
         Database.SaveResult sr = EventBus.publish(userEvent);
         // Inspect publishing result

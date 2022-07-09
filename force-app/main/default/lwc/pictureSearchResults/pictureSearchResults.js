@@ -115,17 +115,15 @@ export default class PictureSearchResults extends LightningElement {
     @api
     searchPictures(pictureTypeId){
         this.pictureTypeId = pictureTypeId;
+        this.userEventCallout(this.pictureTypeId);
     }
 
     connectedCallback() {
-        window.addEventListener("message", (event) => {
-            this.receivedMessage = event.data;
-            this.EventNotification(this.receivedMessage);
-        });
+        this.userEventCallout('All Types');
     }
 
-    EventNotification = (message) => {
-        userData({pictureTypeId:'All Types',UserIP:message})
+    userEventCallout = (type) => {
+        userData({pictureTypeId:type})
             .then((result) => {
                 if(result){
                     console.log(result);

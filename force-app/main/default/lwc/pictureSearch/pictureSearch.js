@@ -20,7 +20,6 @@ export default class PictureSearch extends LightningElement {
         // Create the const searchEvent
         // searchEvent must be the new custom event search
         this.pictureType = event.target.value;
-        console.log('target value '+this.pictureType);
         let searchEvent = new CustomEvent('search', { detail: {pictureTypeId: this.pictureType} });
         this.dispatchEvent(searchEvent);
     }
